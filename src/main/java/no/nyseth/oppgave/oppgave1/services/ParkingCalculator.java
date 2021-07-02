@@ -4,9 +4,10 @@ import no.nyseth.oppgave.oppgave1.model.Parking;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 
 public class ParkingCalculator {
-    private Parking parking;
+    static HashMap<String, Integer> parkingZoneMap = new HashMap<String, Integer>();
 
     public static long calculatePrice(String parkingZone, String  parkingStartTime, String parkingEndTime) {
         Parking parking = new Parking();
@@ -16,13 +17,12 @@ public class ParkingCalculator {
         LocalDateTime dateEnd = LocalDateTime.parse(parkingEndTime);
 
         if (dateEnd.isAfter(dateStart)) {
-            /*
-            Endre til liste for å mimmicke DB?
-            Ta .equals e.l. og se om den matcher, og hente derifra.
-             */
-            if (parkingZone == "M1") {
-                System.out.println("Zone found, rate set");
-                parking.setRate(60);
+
+            //Check if zone exists and retrieve rate
+            if (parkingZoneMap.containsKey(parkingZone)) {
+                System.out.println("Zone found");
+                int parkingRate = parkingZoneMap.get(parkingZone);
+                parking.setRate(parkingRate);
             }
 
             //Calculate fee
@@ -55,6 +55,9 @@ public class ParkingCalculator {
     //"2021-07-13T17:00:00.000"
     //"2021-07-13T18:00:00.000"
     public static void main(String[] args) {
+        parkingZoneMap.put("M1", 60);
+
+        System.out.println(parkingZoneMap);
         calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-13T19:16:00.000");
     }
 }
