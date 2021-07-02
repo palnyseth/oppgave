@@ -11,51 +11,50 @@ public class ParkingCalculator {
     public static long calculatePrice(String parkingZone, String  parkingStartTime, String parkingEndTime) {
         Parking parking = new Parking();
 
-        /*
-        Endre til liste for å mimmicke DB?
-        Ta .equals e.l. og se om den matcher, og hente derifra.
-         */
-        if (parkingZone == "M1") {
-            System.out.println("Zone found, rate set");
-            parking.setRate(60);
-        }
-
         //Parse string to localdatetime
         LocalDateTime dateStart = LocalDateTime.parse(parkingStartTime);
         LocalDateTime dateEnd = LocalDateTime.parse(parkingEndTime);
 
-        //Find timediff
-        long parkingTime = timeDifference(dateStart, dateEnd);
-        parking.setParkingTime(parkingTime);
-        System.out.println("Parking time: " + parkingTime);
+        if (dateEnd.isAfter(dateStart)) {
+            /*
+            Endre til liste for å mimmicke DB?
+            Ta .equals e.l. og se om den matcher, og hente derifra.
+             */
+            if (parkingZone == "M1") {
+                System.out.println("Zone found, rate set");
+                parking.setRate(60);
+            }
 
-        //Calculate fee
-        int parkingRate = parking.getRate();
-        long parkingFeeCalc = (parkingRate * parkingTime);
-        System.out.println("Parking fee: " + parkingFeeCalc);
+            //Calculate fee
+            int parkingRate = parking.getRate();
+            long parkingFee = parkingFeeCalc(parkingRate, dateStart, dateEnd);
 
-        //Set and return price.
-        parking.setParkingPrice(parkingFeeCalc);
-        System.out.println("Parking price: " + parking.getParkingPrice());
+            //Set and return price.
+            parking.setParkingPrice(parkingFee);
+            System.out.println("Parking price: " + parking.getParkingPrice() + "kr");
+        } else {
+            System.out.println("End date is not after start date!");
+        }
         return parking.getParkingPrice();
     }
 
-    /*
-    public LocalDateTime dateTimeParser(String parkingDate) throws Exception {
-        LocalDateTime localDateTime = LocalDateTime.parse(parkingDate);
-        return localDateTime;
-    }*/
+    public static long parkingFeeCalc(long rate, LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
+        long minuteRate = rate / 60;
 
-    public static long timeDifference(LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
-        long differenceHrs = ChronoUnit.MINUTES.between(parkingStartTime, parkingEndTime);
-        return differenceHrs;
+        long differenceMin = ChronoUnit.MINUTES.between(parkingStartTime, parkingEndTime);
+        long hrsParked = differenceMin / 60;
+        long minOutsideHrs = differenceMin % 60;
+
+        System.out.println("Time Parked " + hrsParked + ":" + minOutsideHrs);
+
+        long parkingFeeCalc = ((rate * hrsParked) + (minuteRate * minOutsideHrs));
+        return parkingFeeCalc;
     }
-
 
     //"M1"
     //"2021-07-13T17:00:00.000"
     //"2021-07-13T18:00:00.000"
     public static void main(String[] args) {
-        calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-13T18:00:00.000");
+        calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-13T19:16:00.000");
     }
 }
