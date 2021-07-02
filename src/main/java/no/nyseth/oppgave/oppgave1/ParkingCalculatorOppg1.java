@@ -59,6 +59,6 @@ public class ParkingCalculatorOppg1 {
     }
 
     public static void main(String[] args) {
-        calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-14T19:10:00.000");
+        calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-13T19:10:00.000");
     }
 }
