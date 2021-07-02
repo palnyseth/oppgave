@@ -1,4 +1,4 @@
-package no.nyseth.oppgave.oppgave1.model;
+package no.nyseth.oppgave.model;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,6 @@
-package no.nyseth.oppgave.oppgave1.services;
+package no.nyseth.oppgave.services;
 
-import no.nyseth.oppgave.oppgave1.model.Parking;
+import no.nyseth.oppgave.model.Parking;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -47,17 +47,12 @@ public class ParkingCalculator {
 
         System.out.println("Time Parked " + hrsParked + ":" + minOutsideHrs);
 
-        long parkingFeeCalc = ((rate * hrsParked) + (minuteRate * minOutsideHrs));
-        return parkingFeeCalc;
+        long parkingFeeCalculated = ((rate * hrsParked) + (minuteRate * minOutsideHrs));
+        return parkingFeeCalculated;
     }
 
-    //"M1"
-    //"2021-07-13T17:00:00.000"
-    //"2021-07-13T18:00:00.000"
     public static void main(String[] args) {
         parkingZoneMap.put("M1", 60);
-
-        System.out.println(parkingZoneMap);
         calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-13T19:16:00.000");
     }
 }
