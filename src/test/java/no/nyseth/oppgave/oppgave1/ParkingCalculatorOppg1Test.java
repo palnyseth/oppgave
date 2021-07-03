@@ -34,4 +34,17 @@ class ParkingCalculatorOppg1Test {
         Assertions.assertEquals(1570, ParkingCalculatorOppg1.calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-14T19:10:00.000"));
     }
 
+    //Andre format
+    /*
+        @Test
+    void testCorrectValue() {
+        Assertions.assertEquals(30, ParkingCalculatorOppg1.calculatePrice("M1", "2021-07-13 17:00:00", "2021-07-13 17:30:00"));
+        Assertions.assertEquals(60, ParkingCalculatorOppg1.calculatePrice("M1", "2021-07-13 17:00:00", "2021-07-13 18:00:00"));
+        Assertions.assertEquals(75, ParkingCalculatorOppg1.calculatePrice("M1", "2021-07-13 17:00:00", "2021-07-13 18:15:00"));
+        Assertions.assertEquals(1440, ParkingCalculatorOppg1.calculatePrice("M1", "2021-07-13 17:00:00", "2021-07-14 17:00:00"));
+        Assertions.assertEquals(1560, ParkingCalculatorOppg1.calculatePrice("M1", "2021-07-13 17:00:00", "2021-07-14 19:00:00"));
+        Assertions.assertEquals(1570, ParkingCalculatorOppg1.calculatePrice("M1", "2021-07-13 17:00:00", "2021-07-14 19:10:00"));
+    }
+     */
+
 }
