@@ -19,7 +19,6 @@ import java.util.List;
 
 @Service
 public class ParkingCalculatorService {
-    //static HashMap<String, Double> parkingZoneMap = new HashMap<String, Double>();
     static ArrayList<String> parkingZoneMap = new ArrayList<>();
     private Parking parking;
 
@@ -31,7 +30,7 @@ public class ParkingCalculatorService {
         double parkingFee;
         double parkingRate = 0;
 
-        //Populate hashmap
+        //Populate ArrayList
         parkingZoneMap.add("M1");
         parkingZoneMap.add("M2");
         parkingZoneMap.add("M3");
@@ -58,13 +57,13 @@ public class ParkingCalculatorService {
             throw new IllegalArgumentException("Zone not found");
         }
 
-        if (parking.getParkingZone() == "M1") {
+        if (parking.getParkingZone().equals("M1")) {
             System.out.println("M1 detected.");
             parkingRate = 60;
         }
 
         //Check if zone is m2 and if it's weekend.
-        if (parking.getParkingZone() == "M2") {
+        if (parking.getParkingZone().equals("M2")) {
             System.out.println("M2 detected.");
             parkingRate = 100;
             if (checkWeekend(dateStart)) {
@@ -72,7 +71,7 @@ public class ParkingCalculatorService {
             }
         }
 
-        if (parking.getParkingZone() == "M3") {
+        if (parking.getParkingZone().equals("M3")) {
             System.out.println("M3 detected, progressing.");
             parkingFee = parkingCalcZoneM3(dateStart, dateEnd);
             parking.setParkingFee(parkingFee);
@@ -94,7 +93,6 @@ public class ParkingCalculatorService {
         long differenceMin = ChronoUnit.MINUTES.between(parkingStartTime, parkingEndTime);
         System.out.println("Min: " + differenceMin);
         long hrsParked = differenceMin / 60;
-        //long minOutsideHrs = differenceMin % 60;
 
         DayOfWeek currentDay = parkingEndTime.getDayOfWeek();
 
@@ -118,13 +116,8 @@ public class ParkingCalculatorService {
             minuteRate = 3;
         }
 
-
-
-
         double parkingFeePreRound = (minuteRate * differenceMin); //Calculate fee
         System.out.println("pfr: " + parkingFeePreRound);
-        //double parkingFeeCalculated = Math.round(parkingFeePreRound * 100.0) / 100.0; //Round fee to 2 decimal places.
-
         return parkingFeePreRound;
     }
 
@@ -151,6 +144,6 @@ public class ParkingCalculatorService {
     }
 
     public static void main(String[] args) {
-        calculatePrice("M3", "2021-07-11T17:00:00", "2021-07-11T18:00:00");
+        calculatePrice("M1", "2021-07-11T17:00:00", "2021-07-11T18:00:00");
     }
 }

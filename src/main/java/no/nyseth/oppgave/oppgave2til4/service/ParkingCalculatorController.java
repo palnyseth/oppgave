@@ -16,10 +16,15 @@ public class ParkingCalculatorController {
 
     @GetMapping("/takst")
     public ResponseEntity<Parking> parkingCalculator(@RequestParam String parkingZone, @RequestParam String parkingStartTime, @RequestParam String parkingEndTime) {
-        System.out.println("Soutousoustoustu");
         parking = ParkingCalculatorService.calculatePrice(parkingZone, parkingStartTime, parkingEndTime);
+        //parking = ParkingCalculatorService.calculatePrice("M1", "2021-07-11T17:00:00", "2021-07-11T18:00:00");
         System.out.println("sousosuosusosu");
         return ResponseEntity.ok(parking);
+    }
+
+    @GetMapping("/bajs")
+    public String eetFoook(@RequestParam String parkingZone, @RequestParam String parkingStartTime, @RequestParam String parkingEndTime) {
+        return "Pz: " + parkingZone + " Pst: " + parkingStartTime + " Pet: " + parkingEndTime;
     }
 
 }
