@@ -11,13 +11,14 @@ import java.util.List;
 
 @RestController
 public class ParkingCalculatorController {
+    private ParkingCalculatorService parkingCalculatorService;
     private Parking parking;
 
     @GetMapping("/takst")
-    public ResponseEntity<?> parkingCalculator(@RequestParam String parkingZone, @RequestParam String parkingStartTime, @RequestParam String parkingEndTime) {
-        //parking = ParkingCalculatorService.calculatePrice("M2", "2021-07-10T17:00:00", "2021-07-10T18:00:00");
+    public ResponseEntity<Parking> parkingCalculator(@RequestParam String parkingZone, @RequestParam String parkingStartTime, @RequestParam String parkingEndTime) {
+        System.out.println("Soutousoustoustu");
         parking = ParkingCalculatorService.calculatePrice(parkingZone, parkingStartTime, parkingEndTime);
-        System.out.println(parking.getParkingFee());
+        System.out.println("sousosuosusosu");
         return ResponseEntity.ok(parking);
     }
 

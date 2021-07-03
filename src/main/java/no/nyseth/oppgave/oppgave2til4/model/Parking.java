@@ -26,7 +26,7 @@ public class Parking {
     }
 
     public String getParkingZone() {
-        return parkingZone;
+        return this.parkingZone;
     }
 
     public void setParkingZone(String parkingZone) {
