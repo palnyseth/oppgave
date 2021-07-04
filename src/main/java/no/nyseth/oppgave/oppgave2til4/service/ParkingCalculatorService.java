@@ -1,6 +1,7 @@
 package no.nyseth.oppgave.oppgave2til4.service;
 
 import no.nyseth.oppgave.oppgave2til4.model.Parking;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 
 @Service
 public class ParkingCalculatorService {
+    //ArrayList is used to mimmick a database to check for zone.
     static ArrayList<String> parkingZoneList = new ArrayList<>();
     private Parking parking;
 
@@ -21,13 +23,14 @@ public class ParkingCalculatorService {
         double parkingFee;
         double parkingRate = 0;
 
-        //Populate ArrayList
+        // Populates ArrayList
+        // Has to be somewhere here for some reason for tests and other internal tests to work.
+        // GET-requests works without it.
         parkingZoneList.add("M1");
         parkingZoneList.add("M2");
         parkingZoneList.add("M3");
 
         //Parse string to localdatetime
-        // formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateStart = LocalDateTime.parse(parkingStartTime);
         LocalDateTime dateEnd = LocalDateTime.parse(parkingEndTime);
 
@@ -84,8 +87,10 @@ public class ParkingCalculatorService {
         System.out.println("Min: " + differenceMin);
         long hrsParked = differenceMin / 60;
 
-        DayOfWeek currentDay = parkingEndTime.getDayOfWeek();
+        //Gets day of startTime
+        DayOfWeek currentDay = parkingStartTime.getDayOfWeek();
 
+        //Checks if currentday is Sunday, returns appropriate minute rate if so.
         if (currentDay == DayOfWeek.SUNDAY) {
             minuteRate = 0;
             return minuteRate;
@@ -131,7 +136,7 @@ public class ParkingCalculatorService {
 
     //Method to test internally.
     public static void main(String[] args) {
-        calculatePrice("M2", "2021-07-11T17:00:00", "2021-07-11T18:00:00");
+        //calculatePrice("M2", "2021-07-11T17:00:00", "2021-07-11T18:00:00");
         System.out.println(parkingZoneList.toString());
     }
 }

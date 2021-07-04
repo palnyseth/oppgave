@@ -9,9 +9,8 @@ import java.util.ArrayList;
  * Kalkulator for takstsone M1
  */
 public class ParkingCalculatorOppg1 {
-    /*
-    ArrayList is used to mimmick a database to check for zone.
-     */
+
+    //ArrayList is used to mimmick a database to check for zone.
     static ArrayList<String> parkingZoneList = new ArrayList<>();
 
     public static double calculatePrice(String parkingZone, String  parkingStartTime, String parkingEndTime) {
@@ -20,7 +19,9 @@ public class ParkingCalculatorOppg1 {
         double parkingFee;
         double parkingRate = 0;
 
-        //Populate hashmap
+        //Populate ArrayList -
+        // Has to be somewhere here for some reason for tests and other internal tests to work.
+        // GET-requests works without it.
         parkingZoneList.add("M1");
 
         //Parse string to localdatetime

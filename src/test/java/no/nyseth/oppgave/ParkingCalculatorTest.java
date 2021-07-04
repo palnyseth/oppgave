@@ -2,11 +2,13 @@ package no.nyseth.oppgave;
 
 import no.nyseth.oppgave.oppgave1.ParkingCalculatorOppg1;
 import no.nyseth.oppgave.oppgave2til4.model.Parking;
+import no.nyseth.oppgave.oppgave2til4.service.ParkingCalculatorConfig;
 import no.nyseth.oppgave.oppgave2til4.service.ParkingCalculatorService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ParkingCalculatorConfig {
 
-
     @Bean
     CommandLineRunner commandLineRunner(ParkingCalculatorService parkingCalculatorService) {
         return args -> {
