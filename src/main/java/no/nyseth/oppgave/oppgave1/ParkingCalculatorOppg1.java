@@ -2,7 +2,7 @@ package no.nyseth.oppgave.oppgave1;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * Løsning for Oppgave 1
@@ -10,15 +10,18 @@ import java.util.HashMap;
  */
 public class ParkingCalculatorOppg1 {
     /*
-    Hashmap is used to mimmick a database to check for zone, and retrieve rate.
+    ArrayList is used to mimmick a database to check for zone.
      */
-    static HashMap<String, Integer> parkingZoneMap = new HashMap<String, Integer>();
+    static ArrayList<String> parkingZoneList = new ArrayList<>();
 
-    public static long calculatePrice(String parkingZone, String  parkingStartTime, String parkingEndTime) {
-        long parkingFee;
+    public static double calculatePrice(String parkingZone, String  parkingStartTime, String parkingEndTime) {
+
+        //Declare/initialize variables.
+        double parkingFee;
+        double parkingRate = 0;
 
         //Populate hashmap
-        parkingZoneMap.put("M1", 60);
+        parkingZoneList.add("M1");
 
         //Parse string to localdatetime
         LocalDateTime dateStart = LocalDateTime.parse(parkingStartTime);
@@ -30,12 +33,15 @@ public class ParkingCalculatorOppg1 {
         }
 
         //Check if zone exists and retrieve rate
-        if (!parkingZoneMap.containsKey(parkingZone)) {
+        if (!parkingZoneList.contains(parkingZone)) {
             System.out.println("Zone not found");
             throw new IllegalArgumentException("Zone not found");
         }
 
-        int parkingRate = parkingZoneMap.get(parkingZone);
+        if (parkingZone.equals("M1")) {
+            System.out.println("M1 detected.");
+            parkingRate = 60;
+        }
 
         //Calculate fee
         parkingFee = parkingFeeCalc(parkingRate, dateStart, dateEnd);
@@ -45,8 +51,8 @@ public class ParkingCalculatorOppg1 {
         return parkingFee;
     }
 
-    public static long parkingFeeCalc(long rate, LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
-        long minuteRate = rate / 60;
+    public static double parkingFeeCalc(double rate, LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
+        double minuteRate = rate / 60;
 
         long differenceMin = ChronoUnit.MINUTES.between(parkingStartTime, parkingEndTime);
         long hrsParked = differenceMin / 60;
@@ -54,7 +60,7 @@ public class ParkingCalculatorOppg1 {
 
         System.out.println("Time Parked " + hrsParked + ":" + minOutsideHrs);
 
-        long parkingFeeCalculated = ((rate * hrsParked) + (minuteRate * minOutsideHrs));
+        double parkingFeeCalculated = ((rate * hrsParked) + (minuteRate * minOutsideHrs));
         return parkingFeeCalculated;
     }
 

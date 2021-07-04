@@ -1,39 +1,30 @@
 package no.nyseth.oppgave.oppgave2til4.service;
 
 import no.nyseth.oppgave.oppgave2til4.model.Parking;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @Service
 public class ParkingCalculatorService {
-    static ArrayList<String> parkingZoneMap = new ArrayList<>();
+    static ArrayList<String> parkingZoneList = new ArrayList<>();
     private Parking parking;
 
     @SuppressWarnings("Duplicates") //Added to remove duplicate notice as some code is reused from task 1.
     public static Parking calculatePrice(String parkingZone, String parkingStartTime, String parkingEndTime) {
-        System.out.println(parkingZone);
-
         Parking parking = new Parking(); //Create object
+
+        //Declare/initialize variables.
         double parkingFee;
         double parkingRate = 0;
 
         //Populate ArrayList
-        parkingZoneMap.add("M1");
-        parkingZoneMap.add("M2");
-        parkingZoneMap.add("M3");
+        parkingZoneList.add("M1");
+        parkingZoneList.add("M2");
+        parkingZoneList.add("M3");
 
         //Parse string to localdatetime
         // formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -52,7 +43,7 @@ public class ParkingCalculatorService {
         }
 
         //Check if zone exists and retrieve rate
-        if (!parkingZoneMap.contains(parkingZone)) {
+        if (!parkingZoneList.contains(parkingZone)) {
             System.out.println("Zone not found");
             throw new IllegalArgumentException("Zone not found");
         }
@@ -75,15 +66,14 @@ public class ParkingCalculatorService {
             System.out.println("M3 detected, progressing.");
             parkingFee = parkingCalcZoneM3(dateStart, dateEnd);
             parking.setParkingFee(parkingFee);
-            System.out.println("Parking price: " + parkingFee + "kr" + ", Dag: " + dateStart.getDayOfWeek());
+            System.out.println("Parking price: " + parkingFee + "kr");
             return parking;
         }
 
         //Calculate fee and add to object.
         parkingFee = parkingFeeCalc(parkingRate, dateStart, dateEnd);
         parking.setParkingFee(parkingFee);
-        System.out.println("Parking price: " + parkingFee + "kr" + ", Dag: " + dateStart.getDayOfWeek());
-        System.out.println(parking.getParkingZone());
+        System.out.println("Parking price: " + parkingFee + "kr");
         return parking;
     }
     public static double parkingCalcZoneM3(LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
@@ -101,23 +91,19 @@ public class ParkingCalculatorService {
             return minuteRate;
         }
 
-        if(parkingStartTime.getHour() > 8 && parkingStartTime.getHour() < 16) {
-            System.out.println("a");
+        //Set to be equal to, or less than 15, which makes it last until 15:59, having 16 would have it valid until 16:59 if done same way.
+        if(parkingStartTime.getHour() > 8 && parkingStartTime.getHour() <= 15) {
             if (hrsParked < 1) {
-                System.out.println("aa");
                 minuteRate = 0;
             } else {
-                System.out.println("ab");
                 minuteRate = 2;
                 differenceMin = differenceMin - 60;
             }
         } else {
-            System.out.println("b");
             minuteRate = 3;
         }
 
         double parkingFeePreRound = (minuteRate * differenceMin); //Calculate fee
-        System.out.println("pfr: " + parkingFeePreRound);
         return parkingFeePreRound;
     }
 
@@ -143,7 +129,9 @@ public class ParkingCalculatorService {
         return parkingFeeCalculated;
     }
 
+    //Method to test internally.
     public static void main(String[] args) {
-        calculatePrice("M1", "2021-07-11T17:00:00", "2021-07-11T18:00:00");
+        calculatePrice("M2", "2021-07-11T17:00:00", "2021-07-11T18:00:00");
+        System.out.println(parkingZoneList.toString());
     }
 }
