@@ -1,2 +1,2 @@
 # Programmeringsoppgave
- Programmeringsoppgave Giant Leap
+ Programmeringsoppgave 
