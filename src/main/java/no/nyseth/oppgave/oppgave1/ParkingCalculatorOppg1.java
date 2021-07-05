@@ -7,6 +7,7 @@ import java.util.ArrayList;
 /**
  * Løsning for Oppgave 1
  * Kalkulator for takstsone M1
+ * - Tester er i test.java.nyseth.oppgave.ParkingCalculatorTest (sammen med tester for oppgave 2-4)
  */
 public class ParkingCalculatorOppg1 {
 
@@ -40,6 +41,7 @@ public class ParkingCalculatorOppg1 {
         LocalDateTime dateStart = LocalDateTime.parse(parkingStartTime);
         LocalDateTime dateEnd = LocalDateTime.parse(parkingEndTime);
 
+        //Checks if endDate is after startDate, so that one may not have an endtime that is earlier than starttime
         if (!dateEnd.isAfter(dateStart)) {
             System.out.println("End date is not after start date!");
             throw new IllegalArgumentException("End date is not after start date!");
@@ -51,6 +53,7 @@ public class ParkingCalculatorOppg1 {
             throw new IllegalArgumentException("Zone not found");
         }
 
+        //Checks if zone is M1
         if (parkingZone.equals("M1")) {
             System.out.println("M1 detected.");
             parkingRate = 60;

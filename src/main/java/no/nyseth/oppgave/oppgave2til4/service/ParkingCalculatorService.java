@@ -11,6 +11,14 @@ import java.util.ArrayList;
 
 
 
+/*
+ Løsning oppgave 2 til 4
+ - Løsning involverer andre klasser i oppgave2til4 pakken
+ -- ParkingCalcuatorConfig.java
+ -- ParkingCalculatorService.java
+ -- ParkingCalculatorController.java
+ - Tester er i test.java.nyseth.oppgave.ParkingCalculatorTest (sammen med oppgave 1 tester)
+ */
 @Service
 public class ParkingCalculatorService {
     //ArrayList is used to mimmick a database to check for zone.

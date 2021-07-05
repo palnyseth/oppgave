@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ParkingCalculatorController {
     private Parking parking;
 
+    /**
+     * Endpoint in Controller for parking fee calculator
+     * @param parkingZone - Zone
+     * @param parkingStartTime - StartTime
+     * @param parkingEndTime - EndTime
+     * Creates an Parking object and passes the returned object from the calculation to it
+     * @return - the object and returns it in JSON form.
+     */
     @GetMapping("/takst")
     public ResponseEntity<Parking> parkingCalculator(@RequestParam String parkingZone, @RequestParam String parkingStartTime, @RequestParam String parkingEndTime) {
         parking = ParkingCalculatorService.calculatePrice(parkingZone, parkingStartTime, parkingEndTime);
