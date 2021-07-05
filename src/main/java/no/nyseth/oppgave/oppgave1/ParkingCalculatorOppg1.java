@@ -13,6 +13,18 @@ public class ParkingCalculatorOppg1 {
     //ArrayList is used to mimmick a database to check for zone.
     static ArrayList<String> parkingZoneList = new ArrayList<>();
 
+    /**
+     * Takes three parameters
+     * @param parkingZone - Parking Zone
+     * @param parkingStartTime - What time the parking starts
+     * @param parkingEndTime - What time the parking stops.
+     * Declares/Initializes some used variables.
+     * Adds parkingZone to ArrayList (not ideal way to solve it, but this was a way it worked)
+     * Parses dates to LocalDateTime, the parameters are passed as Strings beforehand.
+     * Runs various checks, throws exception of failed.
+     * Calculates fee
+     * @return - Returns the calculated parking fee
+     */
     public static double calculatePrice(String parkingZone, String  parkingStartTime, String parkingEndTime) {
 
         //Declare/initialize variables.
@@ -52,6 +64,17 @@ public class ParkingCalculatorOppg1 {
         return parkingFee;
     }
 
+    /**
+     * @param rate - The rate of the zone
+     * @param parkingStartTime - Start time of parking
+     * @param parkingEndTime - End time of parking
+     * Takes the rate from the parameters and calculates the minute rate from it.
+     * Calculates the time between the two timestamps to see how long the parking was/is.
+     * Divides the returned number to find amount of hrs parked.
+     * Uses modulo to find the remaining minutes outside hr.
+     * Calculates the fee
+     * @return - The parking fee
+     */
     public static double parkingFeeCalc(double rate, LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
         double minuteRate = rate / 60;
 
@@ -65,7 +88,8 @@ public class ParkingCalculatorOppg1 {
         return parkingFeeCalculated;
     }
 
+    //Method to test internally.
     public static void main(String[] args) {
-        calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-13T19:10:00.000");
+        //calculatePrice("M1", "2021-07-13T17:00:00.000", "2021-07-13T19:10:00.000");
     }
 }
